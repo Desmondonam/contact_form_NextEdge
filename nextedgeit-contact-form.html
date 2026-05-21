@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Next Edge for IT</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:       #6B1F4E;
+      --brand-dark:  #4E1639;
+      --brand-light: #F7EDF3;
+      --accent:      #C0396E;
+      --gold:        #E6A817;
+      --text:        #1A1A2E;
+      --muted:       #6B6B80;
+      --border:      #E2D9E8;
+      --bg:          #FAFAFA;
+      --white:       #FFFFFF;
+      --success-bg:  #EAF7F1;
+      --success:     #0F7A52;
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --shadow:      0 4px 24px rgba(107,31,78,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem 1rem 4rem;
+      color: var(--text);
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 2rem;
+    }
+    .logo-mark {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--brand);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-mark svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .brand-name { font-size: 17px; font-weight: 600; color: var(--brand); line-height: 1.2; }
+    .brand-sub  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── Card ── */
+    .card {
+      width: 100%;
+      max-width: 580px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* ── Card hero ── */
+    .card-hero {
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 60%, var(--accent) 100%);
+      padding: 2rem 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-hero::before {
+      content: '';
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .card-hero::after {
+      content: '';
+      position: absolute;
+      right: 40px; bottom: -60px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65); margin-bottom: 8px;
+    }
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px; color: #fff; line-height: 1.2;
+      position: relative; z-index: 1;
+    }
+    .hero-sub {
+      font-size: 13px; color: rgba(255,255,255,0.75);
+      margin-top: 6px; position: relative; z-index: 1;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 14px; position: relative; z-index: 1;
+    }
+    .hero-tag {
+      font-size: 11px; padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: #FAFAFA;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 14px 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2.5px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+    }
+    .tab-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .tab-btn.active {
+      color: var(--brand);
+      border-bottom-color: var(--brand);
+      background: var(--white);
+    }
+    .tab-btn:hover:not(.active) { color: var(--text); background: #F0EDF5; }
+
+    /* ── Form body ── */
+    .form-body { padding: 1.75rem 2rem 2rem; }
+
+    .form-section { display: none; }
+    .form-section.active { display: block; }
+
+    .field { margin-bottom: 16px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    label {
+      display: block;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 13px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      -webkit-appearance: none;
+    }
+    input::placeholder, textarea::placeholder { color: #B0AAC0; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(107,31,78,0.10);
+    }
+    select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; padding-right: 36px; }
+    textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+
+    /* ── Interest badges ── */
+    .badge-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .badge-group { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+    .badge-opt {
+      font-size: 12px; font-weight: 500;
+      padding: 5px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--white);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .badge-opt:hover { border-color: var(--brand); color: var(--brand); }
+    .badge-opt.selected { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+    /* hidden inputs for badge values */
+    .badge-input { display: none; }
+
+    /* ── Required note ── */
+    .required-note { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+    .req { color: var(--accent); }
+
+    /* ── Submit button ── */
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.15s, transform 0.1s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .submit-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    .submit-btn:hover { background: var(--brand-dark); }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ── Divider ── */
+    .or-divider {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 14px 0 10px;
+    }
+    .wa-link {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px;
+      border: 1px solid #25D366;
+      border-radius: var(--radius-sm);
+      color: #128C54;
+      font-size: 14px; font-weight: 500;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .wa-link:hover { background: #F0FBF4; }
+    .wa-link svg { width: 18px; height: 18px; fill: #25D366; }
+
+    /* ── Success state ── */
+    .success-panel {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .success-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--success-bg);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .success-icon svg { width: 26px; height: 26px; stroke: var(--success); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .success-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); }
+    .success-body { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.6; max-width: 340px; margin-left: auto; margin-right: auto; }
+    .success-reset { margin-top: 20px; font-size: 13px; color: var(--brand); cursor: pointer; background: none; border: none; font-family: inherit; text-decoration: underline; }
+
+    /* ── Error ── */
+    .error-msg { font-size: 12px; color: #C0392B; margin-top: 12px; text-align: center; display: none; }
+
+    /* ── Footer ── */
+    .card-footer {
+      border-top: 1px solid var(--border);
+      padding: 14px 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 8px;
+    }
+    .footer-info { font-size: 12px; color: var(--muted); }
+    .footer-info span { font-weight: 500; color: var(--text); }
+    .footer-secure { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+    .footer-secure svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 2; }
+
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
+      .field-row { grid-template-columns: 1fr; }
+      .card-hero { padding: 1.5rem 1.25rem 1.25rem; }
+      .form-body { padding: 1.25rem 1.25rem 1.5rem; }
+      .card-footer { flex-direction: column; align-items: flex-start; }
+      .hero-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 5l1.5 1.5L21 4"/></svg>
+    </div>
+    <div>
+      <div class="brand-name">Next Edge for Information Technology</div>
+      <div class="brand-sub">Doha, Qatar · nextedgeforit.com · +974 6007 2003</div>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <!-- Hero -->
+    <div class="card-hero">
+      <div class="hero-eyebrow">Qatar's Corporate IT Training Partner</div>
+      <div class="hero-title">Let's Talk</div>
+      <div class="hero-sub">Whether you're an individual looking to grow your skills or a business ready to upskill your team — we're here.</div>
+      <div class="hero-tags">
+        <span class="hero-tag">AI &amp; Machine Learning</span>
+        <span class="hero-tag">Data Analytics</span>
+        <span class="hero-tag">Python</span>
+        <span class="hero-tag">Cybersecurity</span>
+        <span class="hero-tag">Microsoft 365</span>
+        <span class="hero-tag">QNV 2030 Aligned</span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('student', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 3L2 9l10 6 10-6-10-6z"/><path d="M2 17l10 6 10-6"/><path d="M2 13l10 6 10-6"/></svg>
+        I'm a Student
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('corporate', this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M8 9V7a4 4 0 018 0v2"/></svg>
+        Corporate / B2B
+      </button>
+    </div>
+
+    <!-- Forms -->
+    <div class="form-body">
+      <div id="success-panel" class="success-panel">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="success-title">Message received!</div>
+        <p class="success-body">Thank you for reaching out. The Next Edge team will get back to you within 24 hours at the email address you provided.</p>
+        <button class="success-reset" onclick="resetForm()">Send another message</button>
+      </div>
+
+      <!-- STUDENT FORM -->
+      <div id="student-section" class="form-section active">
+        <p class="required-note">Fields marked <span class="req">*</span> are required.</p>
+        <form id="student-form" action="https://formspree.io/f/mkoeryor" method="POST" onsubmit="handleSubmit(event, this)">
+          <input type="hidden" name="_subject" value="New Student Enquiry — Next Edge for IT" />
+          <input type="hidden" name="form_type" value="Student" />
+
+          <div class="field-row">
+            <div class="field">
+              <label for="s-fname">First name <span class="req">*</span></label>
+              <input type="text" id="s-fname" name="first_name" placeholder="Ahmed" required />
+            </div>
+            <div class="field">
+              <label for="s-lname">Last name <span class="req">*</span></label>
+              <input type="text" id="s-lname" name="last_name" placeholder="Al-Mansouri" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="s-email">Email address <span class="req">*</span></label>
+            <input type="email" id="s-email" name="email" placeholder="ahmed@email.com" required />
+          </div>
+
+          <div class="field">
+            <label for="s-phone">Phone / WhatsApp <span class="req">*</span></label>
+            <input type="tel" id="s-phone" name="phone" placeholder="+974 XXXX XXXX" required />
+          </div>
+
+          <div class="field">
+            <label for="s-format">Preferred learning format</label>
+            <select id="s-format" name="preferred_format">
+              <option value="">Select one...</option>
+              <option>Online — live sessions</option>
+              <option>On-site in Doha</option>
+              <option>Either works for me</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="badge-label">I'm interested in <span class="req">*</span></div>
+            <div class="badge-group" id="student-badges">
+              <span class="badge-opt" onclick="toggleBadge(this, 'student-topics')">AI &amp; Machine Learning</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'student-topics')">Data Analytics</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'student-topics')">Data Engineering</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'student-topics')">Data Science</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'student-topics')">Python Programming</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'student-topics')">Cybersecurity</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'student-topics')">Microsoft 365</span>
+            </div>
+            <input type="hidden" id="student-topics" name="topics_of_interest" class="badge-input" />
+          </div>
+
+          <div class="field">
+            <label for="s-background">Your current background</label>
+            <select id="s-background" name="background">
+              <option value="">Select one...</option>
+              <option>Student / Fresh graduate</option>
+              <option>Working professional — non-tech</option>
+              <option>Working professional — tech</option>
+              <option>Career switcher</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="s-message">Anything else you'd like us to know?</label>
+            <textarea id="s-message" name="message" placeholder="Tell us about your goals, background, or any questions..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="student-submit-btn">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send my enquiry
+          </button>
+          <div class="error-msg" id="student-error">Something went wrong. Please email us directly at info@nextedgeforit.com</div>
+        </form>
+
+        <div class="or-divider">— or reach us directly on WhatsApp —</div>
+        <a class="wa-link" href="https://wa.me/97460072003" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp · +974 6007 2003
+        </a>
+      </div>
+
+      <!-- CORPORATE FORM -->
+      <div id="corporate-section" class="form-section">
+        <p class="required-note">Fields marked <span class="req">*</span> are required.</p>
+        <form id="corporate-form" action="https://formspree.io/f/mkoeryor" method="POST" onsubmit="handleSubmit(event, this)">
+          <input type="hidden" name="_subject" value="New Corporate Training Enquiry — Next Edge for IT" />
+          <input type="hidden" name="form_type" value="Corporate / B2B" />
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-name">Your full name <span class="req">*</span></label>
+              <input type="text" id="c-name" name="full_name" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="c-title">Job title <span class="req">*</span></label>
+              <input type="text" id="c-title" name="job_title" placeholder="e.g. HR Manager" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="c-company">Company name <span class="req">*</span></label>
+            <input type="text" id="c-company" name="company_name" placeholder="Your company" required />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-email">Work email <span class="req">*</span></label>
+              <input type="email" id="c-email" name="email" placeholder="you@company.com" required />
+            </div>
+            <div class="field">
+              <label for="c-phone">Phone / WhatsApp <span class="req">*</span></label>
+              <input type="tel" id="c-phone" name="phone" placeholder="+974 XXXX XXXX" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-size">Team size to train</label>
+              <select id="c-size" name="team_size">
+                <option value="">Select range...</option>
+                <option>1 – 10 employees</option>
+                <option>11 – 30 employees</option>
+                <option>31 – 100 employees</option>
+                <option>100+ employees</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="c-timeline">Preferred timeline</label>
+              <select id="c-timeline" name="timeline">
+                <option value="">Select...</option>
+                <option>As soon as possible</option>
+                <option>Within 1 month</option>
+                <option>1 – 3 months</option>
+                <option>3 – 6 months</option>
+                <option>Just exploring options</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div class="badge-label">Training areas needed <span class="req">*</span></div>
+            <div class="badge-group" id="corp-badges">
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">AI &amp; Machine Learning</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">Data Analytics</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">Data Engineering</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">Data Science</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">Python Programming</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">Cybersecurity</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">Microsoft 365</span>
+              <span class="badge-opt" onclick="toggleBadge(this, 'corp-topics')">Custom programme</span>
+            </div>
+            <input type="hidden" id="corp-topics" name="training_areas" class="badge-input" />
+          </div>
+
+          <div class="field">
+            <label for="c-format">Delivery preference</label>
+            <select id="c-format" name="delivery_preference">
+              <option value="">Select one...</option>
+              <option>On-site at our offices in Doha</option>
+              <option>Online — live virtual sessions</option>
+              <option>Blended (on-site + online)</option>
+              <option>Open to recommendations</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="c-message">Tell us about your training goals <span class="req">*</span></label>
+            <textarea id="c-message" name="message" placeholder="Describe your team's goals, current skill gaps, specific requirements, or any questions you have for us..." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="corp-submit-btn">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Request a consultation
+          </button>
+          <div class="error-msg" id="corp-error">Something went wrong. Please email us directly at info@nextedgeforit.com</div>
+        </form>
+
+        <div class="or-divider">— or reach us directly on WhatsApp —</div>
+        <a class="wa-link" href="https://wa.me/97460072003" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp · +974 6007 2003
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <div class="footer-info">
+        📍 <span>Al Mirqab Mall, Doha, Qatar</span> · info@nextedgeforit.com
+      </div>
+      <div class="footer-secure">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Secure &amp; private
+      </div>
+    </div>
+
+  </div><!-- /card -->
+
+  <script>
+    function switchTab(type, btn) {
+      document.querySelectorAll('.tab-btn').forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      document.getElementById('student-section').classList.toggle('active', type === 'student');
+      document.getElementById('corporate-section').classList.toggle('active', type === 'corporate');
+
+      document.getElementById('success-panel').style.display = 'none';
+    }
+
+    function toggleBadge(el, inputId) {
+      el.classList.toggle('selected');
+      var input = document.getElementById(inputId);
+      var selected = [];
+      el.closest('.badge-group').querySelectorAll('.badge-opt.selected').forEach(function(b) {
+        selected.push(b.textContent.trim());
+      });
+      input.value = selected.join(', ');
+    }
+
+    function handleSubmit(event, form) {
+      event.preventDefault();
+      var btn = form.querySelector('.submit-btn');
+      var errorEl = form.parentElement.querySelector('.error-msg') || form.nextElementSibling;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response) {
+        if (response.ok) {
+          document.getElementById('student-section').classList.remove('active');
+          document.getElementById('corporate-section').classList.remove('active');
+          var panel = document.getElementById('success-panel');
+          panel.style.display = 'block';
+        } else {
+          errorEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Try again';
+        }
+      }).catch(function() {
+        errorEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Try again';
+      });
+    }
+
+    function resetForm() {
+      document.getElementById('success-panel').style.display = 'none';
+      document.getElementById('student-form').reset();
+      document.getElementById('corporate-form').reset();
+      document.querySelectorAll('.badge-opt').forEach(function(b) { b.classList.remove('selected'); });
+      document.querySelectorAll('.badge-input').forEach(function(i) { i.value = ''; });
+      document.getElementById('student-section').classList.add('active');
+    }
+  </script>
+</body>
+</html>
